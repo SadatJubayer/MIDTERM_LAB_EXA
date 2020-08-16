@@ -21,6 +21,14 @@ app.use(
   })
 );
 
+const privateRoute = (req, res, next) => {
+  if (req.session.user) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+};
+
 // Routes
 app.get('/', (req, res) => {
   res.json({ status: 'Server is up & running' });
@@ -31,8 +39,8 @@ app.get('/logout', (req, res) => {
   res.redirect('/login');
 });
 app.use('/login', authController);
-app.use('/admin', adminController);
-app.use('/employee', employeeController);
+app.use('/admin', privateRoute, adminController);
+app.use('/employee', privateRoute, employeeController);
 
 // Server
 const PORT = 4000;
