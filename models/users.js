@@ -44,3 +44,17 @@ module.exports.searchUsers = function (searchTerm, callback) {
     callback(result);
   });
 };
+
+module.exports.updateUser = function (id, data, callback) {
+  const sql = `UPDATE users SET ? WHERE users.id = '${id}'`;
+  execute(sql, data, (result) => {
+    callback(result);
+  });
+};
+
+module.exports.removeUser = function (id, callback) {
+  const sql = 'DELETE FROM users WHERE users.id = ?';
+  execute(sql, [id], (result) => {
+    callback(result);
+  });
+};
