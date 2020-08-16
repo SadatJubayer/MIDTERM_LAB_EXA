@@ -34,6 +34,7 @@ router.post('/', userValidator, (req, res) => {
     }
 
     req.session.user = result[0];
+
     if (result[0].role === 'admin') {
       return res.redirect('/admin');
     } else {
