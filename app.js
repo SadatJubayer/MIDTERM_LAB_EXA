@@ -24,6 +24,11 @@ app.use(
 app.get('/', (req, res) => {
   res.json({ status: 'Server is up & running' });
 });
+
+app.get('/logout', (req, res) => {
+  req.session.user = null;
+  res.redirect('/login');
+});
 app.use('/login', authController);
 app.use('/admin', adminController);
 
